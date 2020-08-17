@@ -1,0 +1,7 @@
+system/dao/UserDao.class
+system/controller/LogInController.class
+system/controller/UserController.class
+system/config/SpringConfig.class
+system/config/WebAppInitializer.class
+system/service/UserService.class
+system/model/User.class

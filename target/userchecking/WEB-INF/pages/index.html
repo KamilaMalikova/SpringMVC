@@ -1,9 +1,31 @@
-<html xmlns:th="http://www.thymeleaf.org" lang=eng>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Add CSS and JS to Thymeleaf</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" href="../resources/static/css/main.css"/>
+
 </head>
 <body>
-<p>I am here</p>
+<div class="login-page">
+    <div class="form">
+        <form class="register-form">
+            <input type="text" placeholder="name"/>
+            <input type="password" placeholder="password"/>
+            <input type="text" placeholder="email address"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form class="login-form" th:action="@{/login}" th:object="${userForm}" method="post">
+            <input type="text" placeholder="username" th:field="*{name}"/>
+            <input type="password" placeholder="password" th:field = "*{password}"/>
+            <button>login</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/jquery.min.js}" src="../resources/static/js/jquery.min.js" ></script>
+<script th:src="@{/js/main.js}" src="../resources/static/js/main.js"></script>
+
 </body>
 </html>

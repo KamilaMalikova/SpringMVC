@@ -1,8 +1,17 @@
 package system.model;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+public class User{
     private String name;
     private String password;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private String id;
 
     public User() {
     }
@@ -10,6 +19,13 @@ public class User {
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+    public User(int  id, String username, String password) {
+        this.id = Integer.toString(id);
+        this.name = username;
+        this.password = password;
+
     }
 
     public String getName() {
@@ -34,5 +50,14 @@ public class User {
                 "name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Id
+    public String getId() {
+        return id;
     }
 }

@@ -5,8 +5,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -48,5 +50,27 @@ public class SpringConfig implements WebMvcConfigurer {
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setOrder(1);
         return viewResolver;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("WEB-INF/resources/static/");
+    }
+
+    @Bean
+    public DriverManagerDataSource getDataSource() {
+        DriverManagerDataSource bds = new DriverManagerDataSource();
+        bds.setDriverClassName("com.mysql.jdbc.Driver");
+        bds.setUrl("jdbc:mysql://localhost:3306/USERTEST");
+        bds.setUsername("kamila");
+        bds.setPassword("12345tyuiop");
+        return bds;
+    }
+
+    @Bean
+    public JdbcTemplate getTemplate(){
+        JdbcTemplate template = new JdbcTemplate();
+        template.setDataSource(getDataSource());
+        return template;
     }
 }
