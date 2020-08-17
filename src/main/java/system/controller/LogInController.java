@@ -27,13 +27,11 @@ public class LogInController {
 
     @PostMapping("/login")
     public @ResponseBody String checkUser(@ModelAttribute("userForm")User user) throws SQLException {
-//        System.out.println(user);
-//        if (userService.checkUser(user)){
-//            return "valid";
-//        }
-//        else {
-//            return "not valid";
-//        }
+        if (userService.checkUser(user)){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject(userService.getAllUsers());
+            modelAndView.setViewName("\");
+        }
         String result = Integer.toString(userService.insertUser(user));
         return result;
     }
