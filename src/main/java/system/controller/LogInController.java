@@ -2,6 +2,7 @@ package system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import system.model.User;
@@ -26,13 +27,20 @@ public class LogInController {
     }
 
     @PostMapping("/login")
-    public @ResponseBody String checkUser(@ModelAttribute("userForm")User user) throws SQLException {
+    public String checkUser(@ModelAttribute("userForm")User user) throws SQLException {
         if (userService.checkUser(user)){
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject(userService.getAllUsers());
-            modelAndView.setViewName("\");
+            return "redirect:users";
         }
-        String result = Integer.toString(userService.insertUser(user));
-        return result;
+        else {
+            String result = Integer.toString(userService.insertUser(user));
+            return "index";
+        }
     }
+
+    @GetMapping("users")
+    public String showAllUsers(Model model){
+        model.addAttribute("users", userService.getAllUsers());
+        return "users";
+    }
+
 }

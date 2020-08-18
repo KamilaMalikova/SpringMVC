@@ -14,7 +14,7 @@ public class UserService {
     private UserDao userDao;
 
     public List<User> getAllUsers(){
-        return userDao.getAllUsers();
+        return userDao.select();
     }
     public boolean checkUser(User user){
         int counter = userDao.checkUser(user);
